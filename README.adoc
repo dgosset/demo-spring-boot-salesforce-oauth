@@ -87,7 +87,9 @@ We add this Spring interceptor, ApiLogoutInterceptor, to logout the webapp every
 Why ? This is juste to try the Oauth2 in the same browser with 2 sessions, one B2B and another one B2C on Salesforce.
 
 So you can:
+
 ** be logged in your B2C space, try the demo, see your B2C username.
+
 ** be logged in your B2B space, try the demo, and see your B2B username without any action because Spring-security cache is clear everytime.
 
 In a production mode, obviously, this is not a good way.
