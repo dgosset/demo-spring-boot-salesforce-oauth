@@ -1,0 +1,22 @@
+# demo-spring-boot-salesforce-oauth
+Demo with Spring Boot, Spring-security, Salesforce Oauth2 and Scribe
+
+= Login with Salesforce
+
+== Build and run the app
+
+run : mvn clean spring-boot:run
+
+== Adding the Github Link
+
+Open http://localhost:8080/
+
+.index.html
+[source,html]
+----
+<h1>Login with Salesforce OAuth2</h1>
+<div class="container" ng-show="!home.authenticated">
+	<div>as a B2C Client: <a href="/salesforce/b2c/me">click here</a></div>
+	<div>as a B2B Client: <a href="/salesforce/b2b/me">click here</a></div>
+</div>
+----
