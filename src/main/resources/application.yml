@@ -9,8 +9,8 @@ security:
 salesforce:
   b2c:
     client:
-      clientId: 3MVG9dPGzpc3kWydcitmO_I5XRa8IXTCnEGMfuYLqOUuSscVupHJc8HarX1d845LVyc4iK.QEg6pPEnCZ22IU
-      clientSecret: 680571769674884418
+      clientId: xxx.QEg6pPEnxxxxCZ22IU
+      clientSecret: 6805xxxxxxx4418
       accessTokenUri: https://devec2-espaceclient-adie.cs15.force.com/services/oauth2/token
       userAuthorizationUri: https://devec2-espaceclient-adie.cs15.force.com/services/oauth2/authorize
       clientAuthenticationScheme: form
@@ -20,8 +20,8 @@ salesforce:
       userInfoUri: https://test.salesforce.com/id/{COMMUNITY_ID}/{USER_ID}/
   b2b:
     client:
-      clientId: 3MVG9dPGzpc3kWydcitmO_I5XRa8IXTCnEGMfuYLqOUuSscVupHJc8HarX1d845LVyc4iK.QEg6pPEnCZ22IU
-      clientSecret: 680571769674884418
+      clientId: xxxx.QEg6pPEnCZ22IU
+      clientSecret: 68057xxxx8
       accessTokenUri: https://cs15.salesforce.com/services/oauth2/token
       userAuthorizationUri: https://cs15.salesforce.com/services/oauth2/authorize
       clientAuthenticationScheme: form
