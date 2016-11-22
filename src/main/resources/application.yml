@@ -17,7 +17,7 @@ salesforce:
       authenticationScheme: query
       tokenName: oauth_token
     resource:
-      userInfoUri: https://test.salesforce.com/id/{ORGANISATION_ID}/{USER_ID}/
+      userInfoUri: https://test.salesforce.com/id/{COMMUNITY_ID}/{USER_ID}/
   b2b:
     client:
       clientId: 3MVG9dPGzpc3kWydcitmO_I5XRa8IXTCnEGMfuYLqOUuSscVupHJc8HarX1d845LVyc4iK.QEg6pPEnCZ22IU
@@ -28,7 +28,7 @@ salesforce:
       authenticationScheme: query
       tokenName: oauth_token
     resource:
-      userInfoUri: https://test.salesforce.com/id/{ORGANISATION_ID}/{USER_ID}/
+      userInfoUri: https://test.salesforce.com/id/{COMMUNITY_ID}/{USER_ID}/
 logging:
   level:
     org.springframework.security: DEBUG

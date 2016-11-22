@@ -3,11 +3,46 @@ Demo with Spring Boot, Spring-security, Salesforce Oauth2 and Scribe
 
 = Login with Salesforce
 
+== The trick
+
+Spring-boot and the @EnableOAuth2Client from Spring-security are realy userfriendly.
+We started this demo with the Spring-guide project, "github". In this demo project you can see how to use Oauth2 with Facebook and Github.
+
+https://github.com/spring-guides/tut-spring-boot-oauth2/tree/master/github
+
+Salesforce doesn't provide a good URI like Facebook or Github do.
+
+---
+classic URI: https://graph.facebook.com/me https://api.github.com/user
+Salesforce URI: https://test.salesforce.com/id/{COMMUNITY_ID}/{USER_ID}/
+---
+ 
+Salesforce provide this kind of JWT (We have offended some datas with xxxxxx):
+
+[source,json]
+----
+{sfdc_community_url=https://xxxxxx.cs15.force.com, 
+sfdc_community_id=0DB4xxxxxxq3GAG, 
+signature=FZRlG5Qx3q2xxxxxxHzM4awYQHjFWTo=, id_token=eyJraWQiOiIyMDQiLCJ0eXAiOiJxxxxxxvWtpObNwlbmKjhorIDiRzyIdTj0G1rk8jwENJOz5etotI-BfyeAMa08QfSesxydOhWdlwfEd0NAJcC6sbLgKSfXiAYs6CLuuAanE-3NSQTntxL65FLItxsiN1qggYMPoanmPtwmgqeh-rnTndIdLhxb0tVTgSZOFiV-5wLMc9rEOlAX6zZDj-IOtnK7tFvVJ4eddMi1jfAZuLuFYD_RN28TdZJII8kQZbjR_mAbDG9kJgBcgA7gBWIB35Mmj4jEO22PMU8gyGXxlhZ03MgDJlQLhUjxasixyaKyfpoX3FcIHLvKo3O_dqXP1gIJmpQJRkhfRjEhEpVWK-0MG1fWmwdVmdt9xbKizjj1CNt38SBb4kwgZI6GmBhBqs, 
+instance_url=https://cs15.salesforce.com, 
+id=https://test.salesforce.com/id/00De00xxxxxvqEAG/005e00xxOgXAAW, 
+issued_at=1479734171678}
+----
+
+As you can see, the JSON from Salesforce is not realy "cool".
+- You have the URL in the "id" attribute and not "url" attribute.
+- Nothing to host the real value of the user id, like there is "sfdc_community_id" for the community id
+
+So we choose to extend the OAuth2RestTemplate from Spring-security to get this "id" attribute from JWT and inject in the getForEntity URL.
+This way is a kind of hack. There is a better way ? (pullrequest ^^)
+
 == Build and run the app
 
 run : mvn clean spring-boot:run
 
-== Adding the Github Link
+== Try the OAuth login
+
+You must be logged on your Salesforce account before.
 
 Open http://localhost:8080/
 
