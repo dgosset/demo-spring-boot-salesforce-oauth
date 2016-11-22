@@ -12,14 +12,17 @@ https://github.com/spring-guides/tut-spring-boot-oauth2/tree/master/github
 
 Salesforce doesn't provide a good URI like Facebook or Github do.
 
----
-classic URI: https://graph.facebook.com/me https://api.github.com/user
-Salesforce URI: https://test.salesforce.com/id/{COMMUNITY_ID}/{USER_ID}/
----
+|===
+
+| classic URI | Salesforce URI
+
+| https://graph.facebook.com/me https://api.github.com/user | https://test.salesforce.com/id/{COMMUNITY_ID}/{USER_ID}/
+
+|===
  
 Salesforce provide this kind of JWT (We have offended some datas with xxxxxx):
 
-[source,json]
+[source,html]
 ----
 {sfdc_community_url=https://xxxxxx.cs15.force.com, 
 sfdc_community_id=0DB4xxxxxxq3GAG, 
@@ -38,7 +41,9 @@ This way is a kind of hack. There is a better way ? (pullrequest ^^)
 
 == Build and run the app
 
+```
 run : mvn clean spring-boot:run
+```
 
 == Try the OAuth login
 
