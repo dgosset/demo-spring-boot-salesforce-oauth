@@ -1,7 +1,7 @@
 # demo-spring-boot-salesforce-oauth
 Demo with Spring Boot, Spring-security, Salesforce Oauth2 and Scribe
 
-= Login with Salesforce
+= Login with Salesforce Oauth2
 
 == The trick
 
@@ -34,10 +34,29 @@ issued_at=1479734171678}
 
 As you can see, the JSON from Salesforce is not realy "cool".
 - You have the URL in the "id" attribute and not "url" attribute.
-- Nothing to host the real value of the user id, like there is "sfdc_community_id" for the community id
+- Nothing to host the real value of the user id, like there is "sfdc_community_id" for the community id.
 
-So we choose to extend the OAuth2RestTemplate from Spring-security to get this "id" attribute from JWT and inject in the getForEntity URL.
+So we choose to extend the OAuth2RestTemplate from Spring-security to get this "id" attribute from JWT and inject it, in the getForEntity URL.
 This way is a kind of hack. There is a better way ? (pullrequest ^^)
+
+.index.html
+[source,html]
+----
+	@Override
+	public <T> ResponseEntity<T> getForEntity(String url, Class<T> responseType, Object... urlVariables) throws RestClientException {
+		
+		OAuth2AccessToken token = getAccessToken();
+
+		Map<String, Object> additionalInformations = token.getAdditionalInformation();
+		log.info("AdditionalInformations : " + additionalInformations.toString());
+		String newUserInformationUrl = (String)additionalInformations.get("id");
+		
+		RequestCallback requestCallback = acceptHeaderRequestCallback(responseType);
+		ResponseExtractor<ResponseEntity<T>> responseExtractor = responseEntityExtractor(responseType);
+		
+		return execute(newUserInformationUrl, HttpMethod.GET, requestCallback, responseExtractor, urlVariables);
+	}
+----
 
 == Build and run the app
 
