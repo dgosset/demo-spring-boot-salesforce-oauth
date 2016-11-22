@@ -60,6 +60,8 @@ org.hoteia.SalesforceRestTemplate
 
 == Build and run the app
 
+Configure your "Salesforce application" with the localhost callback URL : http://localhost:8080/
+
 ```
 mvn clean spring-boot:run
 ```
