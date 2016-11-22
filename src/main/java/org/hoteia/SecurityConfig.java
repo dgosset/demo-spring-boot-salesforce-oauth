@@ -17,7 +17,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
@@ -66,40 +65,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public ClientResources salesforceB2B() {
 		return new ClientResources();
 	}
-	
-	@Bean
-	@ConfigurationProperties("github")
-	public ClientResources github() {
-		return new ClientResources();
-	}
-
-	@Bean
-	@ConfigurationProperties("facebook")
-	public ClientResources facebook() {
-		return new ClientResources();
-	}
 
 	private Filter ssoFilter() {
 		CompositeFilter filter = new CompositeFilter();
 		List<Filter> filters = new ArrayList<>();
-		filters.add(ssoFilterCommon(facebook(), "/facebook/me"));
-		filters.add(ssoFilterCommon(github(), "/github/me"));
 
 		filters.add(ssoFilterSalesforce(salesforceB2C(), "/salesforce/b2c/me"));
 		filters.add(ssoFilterSalesforce(salesforceB2B(), "/salesforce/b2b/me"));
 		
 		filter.setFilters(filters);
 		return filter;
-	}
-
-	private Filter ssoFilterCommon(ClientResources client, String path) {
-		OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
-		OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
-		oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
-		UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
-		tokenServices.setRestTemplate(oAuth2RestTemplate);
-		oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
-		return oAuth2ClientAuthenticationFilter;
 	}
 	
 	private Filter ssoFilterSalesforce(ClientResources client, String path) {

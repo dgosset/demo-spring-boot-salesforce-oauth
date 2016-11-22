@@ -39,7 +39,7 @@ As you can see, the JSON from Salesforce is not realy "cool".
 So we choose to extend the OAuth2RestTemplate from Spring-security to get this "id" attribute from JWT and inject it, in the getForEntity URL.
 This way is a kind of hack. There is a better way ? (pullrequest ^^)
 
-.index.html
+org.hoteia.SalesforceRestTemplate
 [source,html]
 ----
 	@Override
@@ -79,3 +79,13 @@ Open http://localhost:8080/
 	<div>as a B2B Client: <a href="/salesforce/b2b/me">click here</a></div>
 </div>
 ----
+
+== Interceptor
+
+We add this Spring interceptor, ApiLogoutInterceptor, to logout the webapp every call.
+Why ? This is juste to try the Oauth2 in the same browser with 2 sessions, one B2B and another one B2C on Salesforce.
+So you can:
+- be logged in your B2C space, try the demo, see your B2C username.
+- be logged in your B2B space, try the demo, and see your B2B username without any action because Spring-security cache is clear everytime.
+In a production mode, obviously, this is not a good way.
+
